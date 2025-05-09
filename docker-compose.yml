@@ -1,0 +1,31 @@
+volumes:
+  postgres-data: {}
+
+services:
+  postgres:
+    image: postgres
+    container_name: fastfood-pg
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PGDATA: ${PGDATA}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:${PGDATA}
+  backend:
+    build: .
+    container_name: fastfood-api
+    ports:
+      - "${PORT}:${PORT}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env

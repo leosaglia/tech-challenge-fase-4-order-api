@@ -1,0 +1,87 @@
+@baseUrl = http://localhost:3001
+
+# @name criar_produto
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "name": "Cheeseburguer",
+  "description": "Pão, carne e queijo",
+  "category": "Lanche",
+  "price": 7.00
+}
+
+###
+
+# @name editar_produto
+PUT {{baseUrl}}/products/cm4g0uxr70000wbuktjvw2qmc
+Content-Type: application/json
+
+{
+  "name": "Burguer Bacon",
+  "description": "Contém 2 hamburgueres com queijo e bacon",
+  "category": "Lanche",
+  "price": 24.50
+}
+
+###
+
+# @name listar_produtos
+GET {{baseUrl}}/products
+
+###
+
+# @name listar_produtos_por_categoria
+GET {{baseUrl}}/products?category=lanche
+Content-Type: application/json
+
+###
+
+# @name deletar_produto
+DELETE {{baseUrl}}/products/cm4g0uxr70000wbuktjvw2qmc
+
+###
+
+# Customer
+
+# @name criar_cliente
+POST {{baseUrl}}/customers
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "document": "111.444.777-35"
+}
+
+###
+
+# @name obter_cliente_por_cpf
+GET {{baseUrl}}/customers/11144477735
+
+###
+
+# Pedidos
+
+# @name criar_pedido
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "productId": "b312e3b0-da23-4312-89dc-386defed43bf",
+      "quantity": 1
+    }
+  ]
+}
+
+###
+
+# @name listar_pedidos
+GET {{baseUrl}}/orders
+
+###
+
+# @name pagar_pedido
+POST  {{baseUrl}}/orders/c2f33828-e154-4838-93a2-0c9e883019a1/payments

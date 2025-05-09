@@ -1,0 +1,810 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "FastFood API",
+        "description": "API for FastFood Tech Challenge",
+        "version": "1.0",
+        "contact": {}
+    },
+    "servers": [],
+    "paths": {
+        "/products": {
+            "post": {
+                "operationId": "createProduct",
+                "summary": "Create a new product",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateProductDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Product created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductPresenter"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "products"
+                ]
+            },
+            "get": {
+                "operationId": "getProducts",
+                "summary": "Get products by category",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "required": false,
+                        "in": "query",
+                        "description": "Filter products by category",
+                        "schema": {}
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Products found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductPresenter"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "products"
+                ]
+            }
+        },
+        "/products/{id}": {
+            "put": {
+                "operationId": "updateProduct",
+                "summary": "Update an existing product",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID of the product to update",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateProductDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Product updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductPresenter"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "products"
+                ]
+            },
+            "delete": {
+                "operationId": "deleteProduct",
+                "summary": "Delete a product",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "description": "ID of the product to delete",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Product deleted"
+                    },
+                    "404": {
+                        "description": "Product not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "products"
+                ]
+            }
+        },
+        "/customers": {
+            "post": {
+                "operationId": "createCustomer",
+                "summary": "Create a new customer",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateCustomerDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Customer created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CustomerPresenter"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Customer already exists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "customers"
+                ]
+            }
+        },
+        "/customers/{document}": {
+            "get": {
+                "operationId": "identifyCustomerByDocument",
+                "summary": "Identify a customer by document",
+                "parameters": [
+                    {
+                        "name": "document",
+                        "required": true,
+                        "in": "path",
+                        "description": "Customer document",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Customer found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CustomerPresenter"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Customer not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "customers"
+                ]
+            }
+        },
+        "/orders": {
+            "post": {
+                "operationId": "createOrder",
+                "summary": "Create an order",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrderDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Order created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrderPresenter"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product or Customer not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "orders"
+                ]
+            },
+            "get": {
+                "operationId": "listOrders",
+                "summary": "List all orders",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/OrderPresenter"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "orders"
+                ]
+            }
+        },
+        "/orders/{orderId}/payments": {
+            "post": {
+                "operationId": "processPayment",
+                "summary": "Fake checkout",
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Payment processed"
+                    },
+                    "404": {
+                        "description": "Order not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict order status",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "orders"
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CreateProductDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the product",
+                        "example": "Burguer Bacon"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Description of the product",
+                        "example": "Contém 2 hamburgueres com queijo e bacon"
+                    },
+                    "category": {
+                        "type": "string",
+                        "description": "Category of the product",
+                        "example": "Lanche",
+                        "enum": [
+                            "lanche",
+                            "bebida",
+                            "acompanhamento"
+                        ]
+                    },
+                    "price": {
+                        "type": "number",
+                        "description": "Price of the product",
+                        "example": 24.5
+                    }
+                },
+                "required": [
+                    "name",
+                    "description",
+                    "category",
+                    "price"
+                ]
+            },
+            "ProductPresenter": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "1a442d43-fad4-47ad-91ce-485346ad5a05"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Burguer Bacon"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Contém 2 hamburgueres com queijo e bacon"
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "Lanche",
+                        "enum": [
+                            "lanche",
+                            "acompanhamento",
+                            "bebida"
+                        ]
+                    },
+                    "price": {
+                        "type": "string",
+                        "example": "10.00"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "category",
+                    "price"
+                ]
+            },
+            "ErrorResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Error message"
+                    },
+                    "statusCode": {
+                        "type": "number",
+                        "description": "HTTP status code"
+                    }
+                },
+                "required": [
+                    "message",
+                    "error",
+                    "statusCode"
+                ]
+            },
+            "UpdateProductDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the product",
+                        "example": "Burguer Bacon"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Description of the product",
+                        "example": "Contém 2 hamburgueres com queijo e bacon"
+                    },
+                    "category": {
+                        "type": "string",
+                        "description": "Category of the product",
+                        "example": "Lanche",
+                        "enum": [
+                            "lanche",
+                            "bebida",
+                            "acompanhamento"
+                        ]
+                    },
+                    "price": {
+                        "type": "number",
+                        "description": "Price of the product",
+                        "example": 24.5
+                    }
+                },
+                "required": [
+                    "name",
+                    "description",
+                    "category",
+                    "price"
+                ]
+            },
+            "CreateCustomerDto": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the customer",
+                        "example": "John Doe"
+                    },
+                    "document": {
+                        "type": "string",
+                        "description": "Document of the customer",
+                        "example": "03150794013"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email of the customer",
+                        "example": "john.doe@example.com"
+                    }
+                },
+                "required": [
+                    "name",
+                    "document",
+                    "email"
+                ]
+            },
+            "CustomerPresenter": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "1a442d43-fad4-47ad-91ce-485346ad5a05"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "document": {
+                        "type": "string",
+                        "example": "12345678900"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "john.doe@example.com"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "document",
+                    "email"
+                ]
+            },
+            "OrderItemDto": {
+                "type": "object",
+                "properties": {
+                    "productId": {
+                        "type": "string",
+                        "example": "1a442d43-fad4-47ad-91ce-485346ad5a05"
+                    },
+                    "quantity": {
+                        "type": "number",
+                        "example": 2
+                    }
+                },
+                "required": [
+                    "productId",
+                    "quantity"
+                ]
+            },
+            "CreateOrderDto": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "description": "Items of the order",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OrderItemDto"
+                        }
+                    },
+                    "customerId": {
+                        "type": "string",
+                        "description": "ID of the customer",
+                        "example": "1a442d43-fad4-47ad-91ce-485346ad5a05"
+                    }
+                },
+                "required": [
+                    "items",
+                    "customerId"
+                ]
+            },
+            "OrderItemPresenter": {
+                "type": "object",
+                "properties": {
+                    "productId": {
+                        "type": "string",
+                        "example": "1a442d43-fad4-47ad-91ce-485346ad5a05"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Burguer Bacon"
+                    },
+                    "price": {
+                        "type": "string",
+                        "example": "10.00"
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "Lanche"
+                    },
+                    "quantity": {
+                        "type": "number",
+                        "example": 2
+                    },
+                    "total": {
+                        "type": "string",
+                        "example": "20.00"
+                    }
+                },
+                "required": [
+                    "productId",
+                    "name",
+                    "price",
+                    "category",
+                    "quantity",
+                    "total"
+                ]
+            },
+            "OrderPresenter": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "1a442d43-fad4-47ad-91ce-485346ad5a05"
+                    },
+                    "customerId": {
+                        "type": "string",
+                        "example": "1a442d43-fad4-47ad-91ce-485346ad5a05"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "criado"
+                    },
+                    "total": {
+                        "type": "string",
+                        "example": "10.00"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "example": "2021-06-01T00:00:00Z"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OrderItemPresenter"
+                        }
+                    }
+                },
+                "required": [
+                    "id",
+                    "customerId",
+                    "status",
+                    "total",
+                    "createdAt",
+                    "items"
+                ]
+            }
+        }
+    }
+}
