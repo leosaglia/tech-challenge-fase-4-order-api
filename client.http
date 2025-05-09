@@ -80,8 +80,3 @@ Content-Type: application/json
 
 # @name listar_pedidos
 GET {{baseUrl}}/orders
-
-###
-
-# @name pagar_pedido
-POST  {{baseUrl}}/orders/c2f33828-e154-4838-93a2-0c9e883019a1/payments

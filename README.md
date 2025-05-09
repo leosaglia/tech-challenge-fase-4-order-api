@@ -119,8 +119,6 @@ Para ser possível realizar um pedido, é necessário que existam produtos cadas
 - Listagem dos produtos `[GET] /products`. Podendo filtrá-los também por categoria `[GET] /products?category={category}`
 - Deleção de produtos `[DELETE] /products/{productId}`
 
-Com os produtos existindo, já é possível fazer um pedido `[POST] /orders` e realizar o pagamento do mesmo `[POST] /orders/{orderId}/payments`
-
 Também é possível fazer um acompanhamento dos pedidos, se já estão em preparação, prontos e etc. `[GET] /orders`
 
 ### 🔆 Arquitetura

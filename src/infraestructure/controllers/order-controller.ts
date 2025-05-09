@@ -2,14 +2,12 @@ import { CreateOrderUseCase } from '@core/application/useCases/order/create-orde
 import { FindAllOrdersUseCase } from '@core/application/useCases/order/find-all-orders-use-case'
 import { FindProductByIdUseCase } from '@core/application/useCases/product/find-product-by-id-use-case'
 import { IdentifyCustomerByDocumentUseCase } from '@core/application/useCases/costumer/identify-customer-by-document-use-case'
-import { MakeOrderPaymentUseCase } from '@core/application/useCases/order/make-order-payment'
 import { IOrderDataSource } from '@core/application/interfaces/repository/order-data-source'
 import { IProductDataSource } from '@core/application/interfaces/repository/product-data-source'
 import { ICustomerDataSource } from '@core/application/interfaces/repository/customer-data-source'
 import { OrderGateway } from '@infra/gateway/order-gateway'
 import { ProductGateway } from '@infra/gateway/product-gateway'
 import { CustomerGateway } from '@infra/gateway/customer-gateway'
-import { PaymentGateway } from '@infra/gateway/payment-gateway'
 import { OrderPresenter } from '@infra/presenters/OrderPresenter'
 import { CreateOrderUseCaseDto } from '@core/application/dtos/create-order-use-case-dto'
 
@@ -56,17 +54,5 @@ export class OrderController {
     return orders.map(({ order, products }) =>
       OrderPresenter.present(order, products),
     )
-  }
-
-  async fakePayment(orderId: string): Promise<void> {
-    const orderGateway = new OrderGateway(this.orderDataSource)
-    const paymentGateway = new PaymentGateway()
-
-    const makeOrderPaymentUseCase = new MakeOrderPaymentUseCase(
-      orderGateway,
-      paymentGateway,
-    )
-
-    await makeOrderPaymentUseCase.execute(orderId)
   }
 }

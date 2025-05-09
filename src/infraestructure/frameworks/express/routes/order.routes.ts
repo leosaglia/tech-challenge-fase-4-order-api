@@ -64,30 +64,4 @@ orderRouter.get(
   },
 )
 
-orderRouter.post(
-  '/:orderId/payments',
-  async (request: Request, response: Response, next: NextFunction) => {
-    try {
-      const orderDataSource: IOrderDataSource =
-        request.app.locals.orderDataSource
-      const productDataSource: IProductDataSource =
-        request.app.locals.productDataSource
-      const customerDataSource: ICustomerDataSource =
-        request.app.locals.customerDataSource
-
-      const orderController = new OrderController(
-        orderDataSource,
-        productDataSource,
-        customerDataSource,
-      )
-
-      await orderController.fakePayment(request.params.orderId)
-
-      response.status(201).json()
-    } catch (error) {
-      next(error)
-    }
-  },
-)
-
 export default orderRouter
