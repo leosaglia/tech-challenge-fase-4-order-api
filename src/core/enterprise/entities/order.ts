@@ -47,12 +47,6 @@ export class Order {
     })
   }
 
-  updateItem(updatedItem: OrderItem): void {
-    this.items = this.items.map((item) =>
-      item.equals(updatedItem) ? updatedItem : item,
-    )
-  }
-
   getTotal(): Decimal {
     return this.items.reduce(
       (total, item) => total.add(item.getTotal()),
@@ -72,16 +66,8 @@ export class Order {
     return this.createdAt
   }
 
-  getUpdatedAt(): Date {
-    return this.updatedAt
-  }
-
   getStatus(): OrderStatus {
     return this.status
-  }
-
-  setStatus(status: OrderStatus): void {
-    this.status = status
   }
 
   setCustomerId(customerId: string): void {
