@@ -10,6 +10,7 @@ export default defineConfig({
         'src/infraestructure/frameworks/prisma/**',
         'src/core/application/interfaces/**',
       ],
+      reporter: ['lcovonly', 'html'],
     },
   },
 })
