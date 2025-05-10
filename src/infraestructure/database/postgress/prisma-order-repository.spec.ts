@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import PrismaOrderRepository from './prisma-order-repository'
 import { PrismaOrderMapper } from './mappers/prisma-order-mapper'
 import { OrderDto } from '@core/application/dtos/order-dto'
+import Decimal from 'decimal.js'
 
 vi.mock('./mappers/prisma-order-mapper', () => ({
   PrismaOrderMapper: {
@@ -36,9 +37,21 @@ describe('PrismaOrderRepository', () => {
       status: 'PENDING',
       customerId: 'cust-1',
       items: [
-        { productId: 'prod-1', quantity: 2, productPrice: 10 },
-        { productId: 'prod-2', quantity: 1, productPrice: 20 },
+        {
+          orderId: 'order-1',
+          productId: 'prod-1',
+          quantity: 2,
+          productPrice: new Decimal(10),
+        },
+        {
+          orderId: 'order-1',
+          productId: 'prod-2',
+          quantity: 1,
+          productPrice: new Decimal(20),
+        },
       ],
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }
 
     // Simulate $transaction calling the callback with a "prisma" object
@@ -62,13 +75,13 @@ describe('PrismaOrderRepository', () => {
           orderId: order.id,
           productId: 'prod-1',
           quantity: 2,
-          productPrice: 10,
+          productPrice: new Decimal(10),
         },
         {
           orderId: order.id,
           productId: 'prod-2',
           quantity: 1,
-          productPrice: 20,
+          productPrice: new Decimal(20),
         },
       ],
     })

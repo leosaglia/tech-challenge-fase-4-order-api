@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { PrismaProductMapper } from './prisma-product-mapper'
 import { Prisma, Product as PrismaProduct } from '@prisma/client'
 import { ProductDto } from '@core/application/dtos/product-dto'
+import Decimal from 'decimal.js'
 
 describe('PrismaProductMapper', () => {
   it('should map PrismaProduct to ProductDto correctly', () => {
@@ -9,8 +10,10 @@ describe('PrismaProductMapper', () => {
       id: 'prod-1',
       name: 'Test Product',
       description: 'A test product',
-      price: 99.99,
+      price: new Prisma.Decimal(99.99),
       category: 'lanche',
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }
 
     const dto = PrismaProductMapper.toDto(raw)
@@ -19,7 +22,7 @@ describe('PrismaProductMapper', () => {
       id: 'prod-1',
       name: 'Test Product',
       description: 'A test product',
-      price: 99.99,
+      price: new Prisma.Decimal('99.99'),
       category: 'lanche',
     })
   })
@@ -29,17 +32,18 @@ describe('PrismaProductMapper', () => {
       id: 'prod-2',
       name: 'Another Product',
       description: 'Another description',
-      price: 10.5,
+      price: new Decimal(10.5),
       category: 'bebida',
     }
 
-    const persistence: Prisma.ProductUncheckedCreateInput = PrismaProductMapper.toPersistence(product)
+    const persistence: Prisma.ProductUncheckedCreateInput =
+      PrismaProductMapper.toPersistence(product)
 
     expect(persistence).toEqual({
       id: 'prod-2',
       name: 'Another Product',
       description: 'Another description',
-      price: 10.5,
+      price: new Decimal(10.5),
       category: 'bebida',
     })
   })
@@ -49,16 +53,17 @@ describe('PrismaProductMapper', () => {
       id: 'prod-3',
       name: 'Update Product',
       description: 'Update description',
-      price: 5.25,
+      price: new Decimal(5.25),
       category: 'sobremesa',
     }
 
-    const updateInput: Prisma.ProductUpdateInput = PrismaProductMapper.toPersistenceUpdate(product)
+    const updateInput: Prisma.ProductUpdateInput =
+      PrismaProductMapper.toPersistenceUpdate(product)
 
     expect(updateInput).toEqual({
       name: 'Update Product',
       description: 'Update description',
-      price: 5.25,
+      price: new Decimal(5.25),
       category: 'sobremesa',
     })
   })
