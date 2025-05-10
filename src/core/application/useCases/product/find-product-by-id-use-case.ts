@@ -7,7 +7,7 @@ type FindProductByIdUseCaseResponse = {
 }
 
 export class FindProductByIdUseCase {
-  constructor(private productGateway: IProductGateway) {}
+  constructor(private readonly productGateway: IProductGateway) {}
 
   async execute(productId: string): Promise<FindProductByIdUseCaseResponse> {
     const product = await this.productGateway.findById(productId)

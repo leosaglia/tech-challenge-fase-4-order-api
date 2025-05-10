@@ -5,7 +5,7 @@ import { PrismaCustomerMapper } from './mappers/prisma-customer-mapper'
 import { ICustomerDataSource } from '@core/application/interfaces/repository/customer-data-source'
 
 export default class PrismaCustomerRepository implements ICustomerDataSource {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async create(customer: CreateCustomerDto): Promise<void> {
     const data = PrismaCustomerMapper.toPersistence(customer)

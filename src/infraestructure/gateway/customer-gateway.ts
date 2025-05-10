@@ -4,7 +4,7 @@ import { Customer } from '@core/enterprise/entities/customer'
 import { CustomerMapper } from './mappers/customer-mapper'
 
 export class CustomerGateway implements ICustomerGateway {
-  constructor(private customerDataSource: ICustomerDataSource) {}
+  constructor(private readonly customerDataSource: ICustomerDataSource) {}
 
   async create(customer: Customer): Promise<void> {
     await this.customerDataSource.create(

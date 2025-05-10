@@ -5,7 +5,7 @@ import { IOrderGateway } from '@core/application/interfaces/gateway/order-gatewa
 import { IOrderDataSource } from '@core/application/interfaces/repository/order-data-source'
 
 export class OrderGateway implements IOrderGateway {
-  constructor(private orderDataSource: IOrderDataSource) {}
+  constructor(private readonly orderDataSource: IOrderDataSource) {}
   async create(order: Order): Promise<void> {
     await this.orderDataSource.create(OrderMapper.toCreateOrderDto(order))
   }

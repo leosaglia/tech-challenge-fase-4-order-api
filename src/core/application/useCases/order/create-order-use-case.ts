@@ -14,9 +14,9 @@ type CreateOrderUseCaseResponse = {
 
 export class CreateOrderUseCase {
   constructor(
-    private orderGateway: IOrderGateway,
-    private findProductByIdUseCase: FindProductByIdUseCase,
-    private identifyCustomerByDocumentUseCase: IdentifyCustomerByDocumentUseCase,
+    private readonly orderGateway: IOrderGateway,
+    private readonly findProductByIdUseCase: FindProductByIdUseCase,
+    private readonly identifyCustomerByDocumentUseCase: IdentifyCustomerByDocumentUseCase,
   ) {}
 
   async execute({

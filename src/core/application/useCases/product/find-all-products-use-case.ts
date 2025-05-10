@@ -7,7 +7,7 @@ type FindAllProductsUseCaseResponse = {
 }
 
 export class FindAllProductsUseCase {
-  constructor(private productGateway: IProductGateway) {}
+  constructor(private readonly productGateway: IProductGateway) {}
 
   async execute(query: {
     category?: string

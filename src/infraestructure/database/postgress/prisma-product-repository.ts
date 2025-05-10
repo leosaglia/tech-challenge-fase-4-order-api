@@ -4,7 +4,7 @@ import { IProductDataSource } from '@core/application/interfaces/repository/prod
 import { PrismaProductMapper } from './mappers/prisma-product-mapper'
 
 export class PrismaProductRepository implements IProductDataSource {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async create(product: ProductDto): Promise<void> {
     const data = PrismaProductMapper.toPersistence(product)

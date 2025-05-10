@@ -10,7 +10,7 @@ type CreateProductUseCaseResponse = {
 }
 
 export class CreateProductUseCase {
-  constructor(private productGateway: IProductGateway) {}
+  constructor(private readonly productGateway: IProductGateway) {}
 
   async execute({
     name,

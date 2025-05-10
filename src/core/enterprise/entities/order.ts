@@ -21,11 +21,11 @@ export class Order {
     updatedAt?: Date,
   ) {
     this.id = new UniqueEntityId(id)
-    this.status = status || OrderStatus.RECEIVED
+    this.status = status ?? OrderStatus.RECEIVED
     this.customerId = customerId ? new UniqueEntityId(customerId) : undefined
-    this.createdAt = createdAt || new Date()
-    this.updatedAt = updatedAt || new Date()
-    this.items = items || []
+    this.createdAt = createdAt ?? new Date()
+    this.updatedAt = updatedAt ?? new Date()
+    this.items = items ?? []
   }
 
   addItem(item: OrderItem): void {

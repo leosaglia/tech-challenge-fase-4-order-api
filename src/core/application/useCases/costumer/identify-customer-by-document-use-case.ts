@@ -8,7 +8,7 @@ type IdentifyCustomerByDocumentUseCaseResponse = {
 }
 
 export class IdentifyCustomerByDocumentUseCase {
-  constructor(private customerGateway: ICustomerGateway) {}
+  constructor(private readonly customerGateway: ICustomerGateway) {}
 
   async execute(
     document: string,
