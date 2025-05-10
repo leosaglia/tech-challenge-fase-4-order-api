@@ -12,6 +12,7 @@ export default defineConfig({
         'src/core/application/interfaces/**',
       ],
       reporter: ['lcovonly', 'html'],
+      reportsDirectory: './coverage',
     },
   },
 })
