@@ -6,6 +6,7 @@ export default defineConfig({
   test: {
     globals: true,
     coverage: {
+      enabled: true,
       exclude: [
         'src/infraestructure/frameworks/prisma/**',
         'src/core/application/interfaces/**',
