@@ -1,0 +1,58 @@
+on:
+  push:
+    branches:
+      - feature**
+
+permissions:
+  pull-requests: write
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
+          
+  open-pr:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      - name: Check out repository code 
+        uses: actions/checkout@v4
+
+      - name: Extract branch name
+        id: extract_branch
+        run: echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+
+      - name: Check for existing PR
+        id: check_pr
+        # lista todos os PRs abertos, utilizando github cli e verifica se já existe um PR para a branch atual
+        run: |
+          gh pr list --state open --base main --head ${{ steps.extract_branch.outputs.branch }} --json headRefName > pr_list.txt
+          if grep -q "${{ steps.extract_branch.outputs.branch }}" pr_list.txt; then
+            echo "pr_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "pr_exists=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Open PR
+        if: steps.check_pr.outputs.pr_exists == 'false'
+        # cria um PR com o título e corpo especificados usando github cli
+        run: |
+          gh pr create \
+          --base main \
+          --head ${{ github.ref }} \
+          --title "Open PR from ${{ steps.extract_branch.outputs.branch }}" \
+          --body "This is an open PR from ${{ steps.extract_branch.outputs.branch }} branch."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
