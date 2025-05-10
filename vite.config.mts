@@ -5,5 +5,11 @@ export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
     globals: true,
+    coverage: {
+      exclude: [
+        'src/infraestructure/frameworks/prisma/**',
+        'src/core/application/interfaces/**',
+      ],
+    },
   },
 })
