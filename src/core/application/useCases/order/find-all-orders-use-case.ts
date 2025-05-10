@@ -12,8 +12,8 @@ type FindOrdersUseCaseResponse = {
 
 export class FindAllOrdersUseCase {
   constructor(
-    private orderGateway: IOrderGateway,
-    private findProductByIdUseCase: FindProductByIdUseCase,
+    private readonly orderGateway: IOrderGateway,
+    private readonly findProductByIdUseCase: FindProductByIdUseCase,
   ) {}
 
   async execute(): Promise<FindOrdersUseCaseResponse> {

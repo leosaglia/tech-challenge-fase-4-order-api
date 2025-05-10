@@ -11,8 +11,8 @@ type EditProductUseCaseResponse = {
 
 export class EditProductUseCase {
   constructor(
-    private productGateway: IProductGateway,
-    private findProductByIdUseCase: FindProductByIdUseCase,
+    private readonly productGateway: IProductGateway,
+    private readonly findProductByIdUseCase: FindProductByIdUseCase,
   ) {}
 
   async execute({

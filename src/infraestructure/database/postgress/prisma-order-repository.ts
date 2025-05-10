@@ -4,7 +4,7 @@ import { OrderDto } from '@core/application/dtos/order-dto'
 import { PrismaOrderMapper } from './mappers/prisma-order-mapper'
 
 export default class PrismaOrderRepository implements IOrderDataSource {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
   async create(order: OrderDto): Promise<void> {
     await this.prisma.$transaction(async (prisma) => {
       await prisma.order.create({
