@@ -18,6 +18,7 @@ jobs:
       - run: npm run test:cov
 
   sonarqube:
+    needs: build-and-test
     name: SonarQube
     runs-on: ubuntu-latest
     steps:
