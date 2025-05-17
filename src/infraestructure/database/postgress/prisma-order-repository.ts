@@ -1,4 +1,4 @@
-import { PrismaService } from '@infra/frameworks/prisma/prisma.service'
+import { PrismaService } from '@infra/database/prisma/prisma.service'
 import { IOrderDataSource } from '@core/application/interfaces/repository/order-data-source'
 import { OrderDto } from '@core/application/dtos/order-dto'
 import { PrismaOrderMapper } from './mappers/prisma-order-mapper'

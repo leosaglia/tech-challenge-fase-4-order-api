@@ -41,7 +41,7 @@ COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/package*.json ./
 COPY --from=build /usr/src/app/tsconfig-paths-bootstrap.js ./
 COPY --from=build /usr/src/app/tsconfig.json ./
-COPY --from=build /usr/src/app/src/infraestructure/frameworks/prisma ./src/infraestructure/frameworks/prisma
+COPY --from=build /usr/src/app/src/infraestructure/database/prisma ./src/infraestructure/database/prisma
 
 # Expor a porta que a aplicação irá rodar
 EXPOSE ${PORT}

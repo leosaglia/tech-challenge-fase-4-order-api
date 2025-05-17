@@ -35,6 +35,6 @@
     "tsconfig-paths": "^4.2.0"
   },
   "prisma": {
-    "schema": "src/infraestructure/frameworks/prisma/schema.prisma"
+    "schema": "src/infraestructure/database/prisma/schema.prisma"
   }
 }

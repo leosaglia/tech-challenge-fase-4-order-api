@@ -8,7 +8,7 @@ export default defineConfig({
     coverage: {
       enabled: true,
       exclude: [
-        'src/infraestructure/frameworks/prisma/**',
+        'src/infraestructure/database/prisma/**',
         'src/core/application/interfaces/**',
       ],
       reporter: ['lcovonly', 'html'],
