@@ -24,4 +24,9 @@ describe('UniqueEntityId', () => {
     expect(id.toValue()).toBe('abc')
     expect(id.getValue()).toBe('abc')
   })
+
+  it('getA should return "a"', () => {
+    const id = new UniqueEntityId('abc')
+    expect(id.getA()).toBe('a')
+  })
 })

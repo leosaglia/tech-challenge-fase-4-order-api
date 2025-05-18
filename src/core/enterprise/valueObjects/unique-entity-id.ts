@@ -18,4 +18,8 @@ export class UniqueEntityId {
   public getValue(): string {
     return this.value
   }
+
+  public getA(): string {
+    return 'a'
+  }
 }
