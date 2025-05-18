@@ -37,6 +37,11 @@ spec:
                 configMapKeyRef:
                   name: order-api-config
                   key: CREATED_ORDER_QUEUE_URL
+            - name: CREATED_CUSTOMER_QUEUE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: order-api-config
+                  key: CREATED_CUSTOMER_QUEUE_URL
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:

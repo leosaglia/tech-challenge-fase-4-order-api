@@ -15,8 +15,9 @@ export class CreateCustomerUseCase {
     document,
     name,
     email,
+    id,
   }: CreateCustomerDto): Promise<CreateCustomerUseCaseResponse> {
-    const customer = new Customer(name, new Document(document), email)
+    const customer = new Customer(name, new Document(document), email, id)
 
     const customerFound = await this.customerGateway.findByDocument(
       customer.getDocument(),

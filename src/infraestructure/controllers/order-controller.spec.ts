@@ -63,7 +63,7 @@ vi.mock('@core/application/useCases/order/find-all-orders-use-case', () => ({
 }))
 vi.mock('@core/application/useCases/product/find-product-by-id-use-case')
 vi.mock(
-  '@core/application/useCases/costumer/identify-customer-by-document-use-case',
+  '@core/application/useCases/customer/identify-customer-by-document-use-case',
 )
 
 describe('OrderController', () => {

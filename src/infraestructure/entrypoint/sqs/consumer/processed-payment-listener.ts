@@ -30,6 +30,7 @@ export class ProcessedPaymentListener {
   }
 
   async listen(): Promise<void> {
+    console.log('Listening for messages PROCESSED_PAYMENT_QUEUE')
     while (true) {
       try {
         await this.receiveMessages()

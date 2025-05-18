@@ -1,7 +1,7 @@
 import { CreateOrderUseCase } from '@core/application/useCases/order/create-order-use-case'
 import { FindAllOrdersUseCase } from '@core/application/useCases/order/find-all-orders-use-case'
 import { FindProductByIdUseCase } from '@core/application/useCases/product/find-product-by-id-use-case'
-import { IdentifyCustomerByDocumentUseCase } from '@core/application/useCases/costumer/identify-customer-by-document-use-case'
+import { IdentifyCustomerByDocumentUseCase } from '@core/application/useCases/customer/identify-customer-by-document-use-case'
 import { IOrderDataSource } from '@core/application/interfaces/repository/order-data-source'
 import { IProductDataSource } from '@core/application/interfaces/repository/product-data-source'
 import { ICustomerDataSource } from '@core/application/interfaces/repository/customer-data-source'

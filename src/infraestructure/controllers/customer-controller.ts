@@ -1,5 +1,4 @@
-import { IdentifyCustomerByDocumentUseCase } from '@core/application/useCases/costumer/identify-customer-by-document-use-case'
-import { CreateCustomerUseCase } from '@core/application/useCases/costumer/create-customer-use-case'
+import { CreateCustomerUseCase } from '@core/application/useCases/customer/create-customer-use-case'
 import { CreateCustomerDto } from '@core/application/dtos/create-customer-dto'
 import { ICustomerDataSource } from '@core/application/interfaces/repository/customer-data-source'
 import { CustomerGateway } from '@infra/gateway/customer-gateway'
@@ -18,16 +17,5 @@ export class CustomerController {
       await createCustomerUseCase.execute(customer)
 
     return CustomerPresenter.present(createdCustomer)
-  }
-
-  async findCustomerByDocument(document: string): Promise<CustomerPresenter> {
-    const customerGateway = new CustomerGateway(this.customerDataSource)
-    const identifyCustomerByDocumentUseCase =
-      new IdentifyCustomerByDocumentUseCase(customerGateway)
-
-    const { customer } =
-      await identifyCustomerByDocumentUseCase.execute(document)
-
-    return CustomerPresenter.present(customer)
   }
 }
