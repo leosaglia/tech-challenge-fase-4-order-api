@@ -10,13 +10,19 @@ import { ProductGateway } from '@infra/gateway/product-gateway'
 import { CustomerGateway } from '@infra/gateway/customer-gateway'
 import { OrderPresenter } from '@infra/presenters/OrderPresenter'
 import { CreateOrderUseCaseDto } from '@core/application/dtos/create-order-use-case-dto'
+import SqsClient from '@infra/entrypoint/sqs/config/sqs.config'
 
 export class OrderController {
+  private readonly queueUrl: string
+
   constructor(
     private readonly orderDataSource: IOrderDataSource,
     private readonly productDataSource: IProductDataSource,
     private readonly customerDataSource: ICustomerDataSource,
-  ) {}
+    private readonly sqsClient: SqsClient,
+  ) {
+    this.queueUrl = process.env.CREATED_ORDER_QUEUE_URL ?? ''
+  }
 
   async createOrder(order: CreateOrderUseCaseDto): Promise<OrderPresenter> {
     const orderGateway = new OrderGateway(this.orderDataSource)
@@ -35,6 +41,10 @@ export class OrderController {
 
     const { order: createdOrder, products } =
       await createOrderUseCase.execute(order)
+
+    await this.sqsClient.sendMessage(this.queueUrl, {
+      orderId: createdOrder.getId(),
+    })
 
     return OrderPresenter.present(createdOrder, products)
   }
