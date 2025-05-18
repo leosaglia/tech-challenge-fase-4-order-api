@@ -6,12 +6,14 @@ import { IProductDataSource } from '@core/application/interfaces/repository/prod
 import { ICustomerDataSource } from '@core/application/interfaces/repository/customer-data-source'
 import { IOrderDataSource } from '@core/application/interfaces/repository/order-data-source'
 import globalErrorHandler from './global-error-handling'
+import SqsClient from '@infra/entrypoint/sqs/config/sqs.config'
 
 export class TechChallengeAPI {
   static start(
     productDataSource: IProductDataSource,
     customerDataSource: ICustomerDataSource,
     orderDataSource: IOrderDataSource,
+    sqsClient: SqsClient,
   ) {
     const app = express()
     app.use(express.json())
@@ -22,14 +24,17 @@ export class TechChallengeAPI {
       req.app.locals.productDataSource = productDataSource
       req.app.locals.customerDataSource = customerDataSource
       req.app.locals.orderDataSource = orderDataSource
+      req.app.locals.sqsClient = sqsClient
       next()
     })
 
     app.use(routes)
     app.use(globalErrorHandler)
 
-    app.listen(process.env.PORT ?? 3001, () => {
-      console.log(`Server started on port ${process.env.PORT}⚡`)
+    const port = process.env.PORT ?? 3001
+
+    app.listen(port, () => {
+      console.log(`Server started on port ${port}⚡`)
     })
   }
 }

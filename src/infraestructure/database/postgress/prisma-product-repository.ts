@@ -1,5 +1,5 @@
 import { ProductDto } from '@core/application/dtos/product-dto'
-import { PrismaService } from '@infra/frameworks/prisma/prisma.service'
+import { PrismaService } from '@infra/database/prisma/prisma.service'
 import { IProductDataSource } from '@core/application/interfaces/repository/product-data-source'
 import { PrismaProductMapper } from './mappers/prisma-product-mapper'
 

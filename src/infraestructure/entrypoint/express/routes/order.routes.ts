@@ -17,11 +17,13 @@ orderRouter.post(
         request.app.locals.productDataSource
       const customerDataSource: ICustomerDataSource =
         request.app.locals.customerDataSource
+      const sqsClient = request.app.locals.sqsClient
 
       const orderController = new OrderController(
         orderDataSource,
         productDataSource,
         customerDataSource,
+        sqsClient,
       )
 
       const { customerDocument, items } = request.body
@@ -48,11 +50,13 @@ orderRouter.get(
         request.app.locals.productDataSource
       const customerDataSource: ICustomerDataSource =
         request.app.locals.customerDataSource
+      const sqsClient = request.app.locals.sqsClient
 
       const orderController = new OrderController(
         orderDataSource,
         productDataSource,
         customerDataSource,
+        sqsClient,
       )
 
       const orders = await orderController.findAllOrders()

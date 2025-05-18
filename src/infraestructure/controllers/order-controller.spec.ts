@@ -6,6 +6,7 @@ import { Product } from '@core/enterprise/entities/product'
 import { Category } from '@core/enterprise/valueObjects/category'
 import Decimal from 'decimal.js'
 import { OrderPresenter } from '@infra/presenters/OrderPresenter'
+import SqsClient from '@infra/entrypoint/sqs/config/sqs.config'
 
 // src/infraestructure/controllers/order-controller.test.ts
 
@@ -62,7 +63,7 @@ vi.mock('@core/application/useCases/order/find-all-orders-use-case', () => ({
 }))
 vi.mock('@core/application/useCases/product/find-product-by-id-use-case')
 vi.mock(
-  '@core/application/useCases/costumer/identify-customer-by-document-use-case',
+  '@core/application/useCases/customer/identify-customer-by-document-use-case',
 )
 
 describe('OrderController', () => {
@@ -84,6 +85,12 @@ describe('OrderController', () => {
     findByDocument: vi.fn(),
     findById: vi.fn(),
   }
+  const mockSqsClient = {
+    sendMessage: vi.fn(),
+    client: {},
+    receiveMessages: vi.fn(),
+    deleteMessage: vi.fn(),
+  }
 
   let controller: OrderController
 
@@ -92,6 +99,7 @@ describe('OrderController', () => {
       mockOrderDataSource,
       mockProductDataSource,
       mockCustomerDataSource,
+      mockSqsClient as unknown as SqsClient,
     )
   })
 

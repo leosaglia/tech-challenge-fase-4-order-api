@@ -85,6 +85,16 @@ describe('globalErrorHandler', () => {
     })
   })
 
+  it('should return 404 for OrderNotFoundError', () => {
+    const err = { name: 'OrderNotFoundError', message: 'Order not found' }
+    globalErrorHandler(err as Error, req, res, next)
+    expect(res.status).toHaveBeenCalledWith(404)
+    expect(res.json).toHaveBeenCalledWith({
+      statusCode: 404,
+      message: 'Order not found',
+    })
+  })
+
   it('should return 409 for CustomerAlreadyExistsError', () => {
     const err = {
       name: 'CustomerAlreadyExistsError',

@@ -7,7 +7,7 @@ import { IProductGateway } from '@core/application/interfaces/gateway/product-ga
 import { ICustomerGateway } from '@core/application/interfaces/gateway/customer-gateway-interface'
 import { CreateOrderUseCase } from './create-order-use-case'
 import { FindProductByIdUseCase } from '@core/application/useCases/product/find-product-by-id-use-case'
-import { IdentifyCustomerByDocumentUseCase } from '@core/application/useCases/costumer/identify-customer-by-document-use-case'
+import { IdentifyCustomerByDocumentUseCase } from '@core/application/useCases/customer/identify-customer-by-document-use-case'
 import { makeProduct } from '@test/factories/product-factory'
 import { makeCustomer } from '@test/factories/customer-factory'
 import { InvalidOrderError } from '@core/enterprise/custom-exceptions/invalid-order'

@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tech-challenge-fast-food-api-deployment
+  name: tech-challenge-fase-4-order-api-deployment
   labels:
-    app: tech-challenge-fast-food-api-deployment
+    app: tech-challenge-fase-4-order-api-deployment
 spec:
   selector:
     matchLabels:
-      app: tech-challenge-fast-food-api
+      app: tech-challenge-fase-4-order-api
   template:
     metadata:
       labels:
-        app: tech-challenge-fast-food-api
+        app: tech-challenge-fase-4-order-api
     spec:
       containers:
-        - name: tech-challenge-fast-food-api
-          image: leosaglia/tech-challenge-fast-food-api
+        - name: tech-challenge-fase-4-order-api
+          image: leosaglia/tech-challenge-fase-4-order-api
           imagePullPolicy: Always
           ports:
             - containerPort: 3001
@@ -23,10 +23,40 @@ spec:
             - name: POSTGRES_URL
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret
+                  name: order-api-secrets
                   key: POSTGRES_URL
             - name: PORT
               value: "3001"
+            - name: PROCESSED_PAYMENT_QUEUE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: order-api-config
+                  key: PROCESSED_PAYMENT_QUEUE_URL
+            - name: CREATED_ORDER_QUEUE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: order-api-config
+                  key: CREATED_ORDER_QUEUE_URL
+            - name: CREATED_CUSTOMER_QUEUE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: order-api-config
+                  key: CREATED_CUSTOMER_QUEUE_URL
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: order-api-secrets
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: order-api-secrets
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_SESSION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: order-api-secrets
+                  key: AWS_SESSION_TOKEN
           resources:
             requests:
               memory: "256Mi"

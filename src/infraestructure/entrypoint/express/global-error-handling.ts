@@ -18,6 +18,7 @@ const globalErrorHandler = (
       break
     case 'ProductNotFoundError':
     case 'CustomerNotFoundError':
+    case 'OrderNotFoundError':
       res.status(404).json({ statusCode: 404, message: err.message })
       break
     case 'CustomerAlreadyExistsError':
