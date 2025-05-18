@@ -7,7 +7,7 @@ env:
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
   DOCKERHUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
   GITHUB_SHA: ${{ github.sha }}
-  DOCKERHUB_REPOSITORY: tech-challenge-fast-food-api
+  DOCKERHUB_REPOSITORY: tech-challenge-fase-4-order-api
 
 jobs:
   sonar-scan:
@@ -89,17 +89,26 @@ jobs:
       - name: Update kubeconfig
         run: aws eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_REGION
 
+      - name: Create/Update order-api-secrets with AWS credentials
+        run: |
+          kubectl delete secret order-api-secrets || true
+          kubectl create secret generic order-api-secrets \
+            --from-literal=POSTGRES_URL="${{ secrets.POSTGRES_URL }}" \
+            --from-literal=AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
+            --from-literal=AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
+            --from-literal=AWS_SESSION_TOKEN="${{ secrets.AWS_SESSION_TOKEN }}"
+
       - name: Deploy to EKS
         run: |
-          kubectl apply -f kubernetes-infra/secrets.yaml
+          kubectl apply -f kubernetes-infra/configmap.yaml
           kubectl apply -f kubernetes-infra/api-service.yaml
           kubectl apply -f kubernetes-infra/api-deployment.yaml
           kubectl apply -f kubernetes-infra/api-hpa.yaml
 
-          kubectl set image deployment/tech-challenge-fast-food-api-deployment \
-            tech-challenge-fast-food-api=$DOCKERHUB_USERNAME/$DOCKERHUB_REPOSITORY:$GITHUB_SHA \
+          kubectl set image deployment/tech-challenge-fase-4-order-api-deployment \
+            tech-challenge-fase-4-order-api=$DOCKERHUB_USERNAME/$DOCKERHUB_REPOSITORY:$GITHUB_SHA \
             --record
 
       - name: Check rollout status
         run: |
-          kubectl rollout status deployment/tech-challenge-fast-food-api-deployment --timeout=60s || exit 1
+          kubectl rollout status deployment/tech-challenge-fase-4-order-api-deployment --timeout=60s || exit 1

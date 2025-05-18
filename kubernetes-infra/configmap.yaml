@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-api-config
+data:
+  PROCESSED_PAYMENT_QUEUE_URL: "https://sqs.us-east-1.amazonaws.com/835918211047/processed-payment-queue"
+  CREATED_ORDER_QUEUE_URL: "https://sqs.us-east-1.amazonaws.com/835918211047/created-order-queue"
