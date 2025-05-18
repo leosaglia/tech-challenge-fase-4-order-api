@@ -11,6 +11,7 @@ import { CustomerGateway } from '@infra/gateway/customer-gateway'
 import { OrderPresenter } from '@infra/presenters/OrderPresenter'
 import { CreateOrderUseCaseDto } from '@core/application/dtos/create-order-use-case-dto'
 import SqsClient from '@infra/entrypoint/sqs/config/sqs.config'
+import { UpdateOrderStatusUseCase } from '@core/application/useCases/order/update-order-status-use-case'
 
 export class OrderController {
   private readonly queueUrl: string
@@ -64,5 +65,12 @@ export class OrderController {
     return orders.map(({ order, products }) =>
       OrderPresenter.present(order, products),
     )
+  }
+
+  async updateOrderStatus(orderId: string, newStatus: string): Promise<void> {
+    const orderGateway = new OrderGateway(this.orderDataSource)
+    const updateOrderStatusUseCase = new UpdateOrderStatusUseCase(orderGateway)
+
+    await updateOrderStatusUseCase.execute({ orderId, status: newStatus })
   }
 }

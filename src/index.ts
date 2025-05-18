@@ -4,6 +4,7 @@ import { PrismaProductRepository } from '@infra/database/postgress/prisma-produc
 import { TechChallengeAPI } from '@infra/entrypoint/express/server'
 import { PrismaService } from '@infra/database/prisma/prisma.service'
 import SqsClient from '@infra/entrypoint/sqs/config/sqs.config'
+import { ProcessedPaymentListener } from '@infra/entrypoint/sqs/consumer/processed-payment-listener'
 
 const sqsClient = new SqsClient()
 
@@ -17,3 +18,14 @@ TechChallengeAPI.start(
   orderDataSource,
   sqsClient,
 )
+
+// Inicia o listener do SQS
+const orderListener = new ProcessedPaymentListener(
+  orderDataSource,
+  productDataSource,
+  customerDataSource,
+  sqsClient,
+)
+orderListener.listen().catch((err) => {
+  console.error('Erro ao iniciar o listener SQS:', err)
+})

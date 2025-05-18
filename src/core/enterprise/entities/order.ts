@@ -77,4 +77,8 @@ export class Order {
   getCustomerId(): string | undefined {
     return this.customerId?.getValue()
   }
+
+  setStatus(status: OrderStatus): void {
+    this.status = status
+  }
 }
