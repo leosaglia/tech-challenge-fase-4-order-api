@@ -104,11 +104,3 @@ jobs:
           kubectl apply -f kubernetes-infra/api-service.yaml
           kubectl apply -f kubernetes-infra/api-deployment.yaml
           kubectl apply -f kubernetes-infra/api-hpa.yaml
-
-          kubectl set image deployment/tech-challenge-fase-4-order-api-deployment \
-            tech-challenge-fase-4-order-api=$DOCKERHUB_USERNAME/$DOCKERHUB_REPOSITORY:$GITHUB_SHA \
-            --record
-
-      - name: Check rollout status
-        run: |
-          kubectl rollout status deployment/tech-challenge-fase-4-order-api-deployment --timeout=60s || exit 1
