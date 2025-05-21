@@ -38,7 +38,7 @@ describe('FindProductByIdUseCase', () => {
 
     await expect(sut.execute('1')).rejects.toThrow(
       expect.objectContaining({
-        message: 'Product with id 1 not found.',
+        message: 'Product with id 1 not found..',
         name: ProductNotFoundError.name,
       }),
     )

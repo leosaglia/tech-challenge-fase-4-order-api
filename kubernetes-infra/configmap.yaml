@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: order-api-config
 data:
-  PROCESSED_PAYMENT_QUEUE_URL: "https://sqs.us-east-1.amazonaws.com/835918211047/processed-payment-queue"
-  CREATED_ORDER_QUEUE_URL: "https://sqs.us-east-1.amazonaws.com/835918211047/created-order-queue"
-  CREATED_CUSTOMER_QUEUE_URL: "https://sqs.us-east-1.amazonaws.com/835918211047/created-customer-queue"
+  PROCESSED_PAYMENT_QUEUE_URL: "https://sqs.us-east-1.amazonaws.com/835311494914/processed-payment-queue"
+  CREATED_ORDER_QUEUE_URL: "https://sqs.us-east-1.amazonaws.com/835311494914/created-order-queue"
+  CREATED_CUSTOMER_QUEUE_URL: "https://sqs.us-east-1.amazonaws.com/835311494914/created-customer-queue"

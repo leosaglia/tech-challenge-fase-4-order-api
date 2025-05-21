@@ -13,7 +13,7 @@ export class FindProductByIdUseCase {
     const product = await this.productGateway.findById(productId)
 
     if (!product) {
-      throw new ProductNotFoundError(`Product with id ${productId} not found.`)
+      throw new ProductNotFoundError(`Product with id ${productId} not found..`)
     }
 
     return { product }
