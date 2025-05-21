@@ -1,5 +1,8 @@
 # Tech-challenge-fase-4-order-api
 
+## Evidência cobertura de testes
+![Cobertura de Testes](assets/coverage.png)
+
 ## 📜 Descrição da Aplicação
 
 Esta aplicação é um desafio técnico para um sistema de gerenciamento de fast food.
