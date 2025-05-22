@@ -13,31 +13,39 @@ Essa versão da API é especifica para rodar com sucesso na AWS, caso queira rod
 
 ## Pré-requisitos para rodar os testes BDD (Cucumber)
 
-1. Crie um arquivo `.env` na raiz do projeto com a variável de conexão do banco:
+1. Certifique-se de ter o [Make](https://www.gnu.org/software/make/) instalado em sua máquina.
+   - No Windows, recomenda-se instalar via [Gow](https://github.com/bmatzelle/gow) ou [GnuWin](http://gnuwin32.sourceforge.net/packages/make.htm), ou utilizar o terminal do WSL.
 
+2. Execute o comando abaixo para subir os containers necessários (LocalStack e Postgres):
 ```
-POSTGRES_URL=postgresql://user:pass@localhost:5432/poc
-```
-
-2. Suba um container Docker com a imagem do Postgres utilizando as mesmas credenciais do `.env`:
-
-Exemplo de comando:
-```
-docker run --name techchallenge-postgres -e POSTGRES_USER=user -e POSTGRES_PASSWORD=pass -e POSTGRES_DB=poc -p 5432:5432 -d postgres:16
+make up
 ```
 
-3. Gere os artefatos do Prisma e execute as migrations:
+3. Crie as filas SQS necessárias:
 ```
-npx prisma generate
-npx prisma migrate deploy
+make create-queue
 ```
 
-4. Inicie a aplicação em modo desenvolvimento:
+4. Gere o arquivo `.env` automaticamente:
+```
+make create-env-file
+```
+
+5. Gere os artefatos do Prisma e execute as migrations:
+```
+make setup-prisma-db
+```
+
+6. Inicie a aplicação em modo desenvolvimento:
 ```
 npm run start:dev
 ```
 
-5. Execute os testes BDD com Cucumber:
+7. Execute os testes BDD com Cucumber:
 ```
 npm run test:bdd
 ```
+
+8. Para parar e remover os containers:
+```
+make down

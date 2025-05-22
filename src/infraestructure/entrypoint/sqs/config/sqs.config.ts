@@ -11,6 +11,9 @@ export default class SqsClient {
   constructor() {
     this.client = new SQSClient({
       region: process.env.AWS_REGION ?? 'us-east-1',
+      ...(process.env.ENVIRONMENT === 'local'
+        ? { endpoint: process.env.AWS_LOCAL_ENDPOINT }
+        : {}),
     })
   }
 
